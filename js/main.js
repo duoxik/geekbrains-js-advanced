@@ -129,4 +129,4 @@ cart.addProduct(socks);
 cart.addProduct(jacket);
 cart.addProduct(shoes);
 
-cart.addProduct(new ProductsCart());
+console.log(cart);
