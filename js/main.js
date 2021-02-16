@@ -22,6 +22,111 @@ const renderGoodsItem = (title, price) => {
 const renderGoodsList = () => {
     const items = document.querySelector('.products__items');
     goods.forEach(item => items.insertAdjacentHTML('beforeend', renderGoodsItem(item.title, item.price)));
-}
+};
 
 renderGoodsList();
+
+/* Домашка к уроку 2 */
+/* 1. не стал выносить size потому что он может быть не у всех товаров */
+/* 2. помечаю поля как private по аналогии с парадигмой инкапсуляции в java */
+/*    насколько это уместно здесь не знаю :) */
+class ProductsCart {
+    #products = new Array();
+    #totalPrice = 0; 
+
+    addProduct(product) {
+        if (!(product instanceof Product)) {
+            throw new Error('Передан параметр не являющийся инстансом Product');
+        }
+
+        this.#products.push(product);
+        this.#totalPrice += product.getPrice();
+    }
+
+    getTotalPrice() {
+        return this.#totalPrice;
+    }
+}
+
+class Product {
+    #name;
+    #price;
+
+    constructor(name, price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    getPrice() {
+        return this.price;
+    }
+}
+
+class Shirt extends Product {
+    #size;
+    
+    constructor(name, price, size) {
+        super(name, price);
+        this.size = size;
+    }
+
+    getSize() {
+        return this.size;
+    }
+}
+
+class Socks extends Product {
+    #size;
+
+    constructor(name, price, size) {
+        super(name, price);
+        this.size = size;
+    }
+
+    getSize() {
+        return this.size;
+    }
+}
+
+class Jacket extends Product {
+    #size;
+
+    constructor(name, price, size) {
+        super(name, price);
+        this.size = size;
+    }
+
+    getSize() {
+        return this.size;
+    }
+}
+
+class Shoes extends Product {
+    #size;
+
+    constructor(name, price, size) {
+        super(name, price);
+        this.size = size;
+    };
+
+    getSize() {
+        return this.size;
+    };
+};
+
+shirt = new Shirt('test shirt', 250, 'L');
+socks = new Socks('test socks', 100, 'S');
+jacket = new Jacket('test jacket', 1000, 'XL');
+shoes = new Shoes('test shoes', 500, 'M');
+
+cart = new ProductsCart();
+cart.addProduct(shirt);
+cart.addProduct(socks);
+cart.addProduct(jacket);
+cart.addProduct(shoes);
+
+cart.addProduct(new ProductsCart());
